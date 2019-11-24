@@ -10,8 +10,6 @@ describe('DynamoDb Repository Renderer', () => {
         let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("ServerlessRepository", "ap-south-1");
         let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
 
-        console.log(repositoryCode);
-
         expect(repositoryCode).to.contains("class ServerlessRepository", "");
     });
 
