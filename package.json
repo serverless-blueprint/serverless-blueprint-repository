@@ -1,0 +1,14 @@
+{
+  "name": "serverless-blueprint-repository",
+  "version": "1.0.0",
+  "description": "Generate serverless repository to interact with database.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serverless-blueprint/serverless-blueprint-repository.git"
+  },
+  "author": "Sarthak Makhija",
+  "bugs": {
+    "url": "https://github.com/serverless-blueprint/serverless-blueprint-repository/issues"
+  },
+  "homepage": "https://github.com/serverless-blueprint/serverless-blueprint-repository#readme"
+}
