@@ -20,9 +20,24 @@ class {{className}} {
 `;
 
 
+class DynamoDbRepositoryTemplate {
+
+    load(): string {
+        return dynamoDbRepositoryTemplate;
+    }
+}
+
 export class DynamoDbRepositoryRenderer {
+
+    private dbRepositoryTemplate: DynamoDbRepositoryTemplate;
+
+    constructor() {
+        this.dbRepositoryTemplate = new DynamoDbRepositoryTemplate();
+    }
+
     render(dynamoDbRepositoryFeatures: DynamoDbRepositoryFeatures): string {
-        return new StringTemplate(dynamoDbRepositoryTemplate)
-            .mergeWith(dynamoDbRepositoryFeatures);
+
+        let template = this.dbRepositoryTemplate.load();
+        return new StringTemplate(template).mergeWith(dynamoDbRepositoryFeatures);
     }
 }
