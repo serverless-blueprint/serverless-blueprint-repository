@@ -1,5 +1,5 @@
 import {StringTemplate} from "serverless-blueprint-template-engine/src/org/blueprint/serverless/template/engine/StringTemplate";
-import {DynamoDbRepositoryFeatures} from "./model/DynamoDbFeatures";
+import {DynamoDbRepositoryFeatures} from "./model/DynamoDbRepositoryFeatures";
 import {DynamoDbRepositoryTemplate} from "./model/DynamoDbRepositoryTemplate";
 
 export class DynamoDbRepositoryRenderer {
