@@ -27,7 +27,7 @@ describe('DynamoDb Repository Renderer', () => {
             .callsFake(() => "const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'})");
 
         let dynamoDbRepositoryRenderer = new DynamoDbRepositoryRenderer();
-        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "ap-south-1", "");
+        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "", "ap-south-1");
         let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal("const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: 'ap-south-1'})");

@@ -23,8 +23,7 @@ module.exports = ServerlessRepository;`.trim();
 
     it('should return dynamo db repository code', function () {
         let dynamoDbRepositoryRenderer = new DynamoDbRepositoryRenderer();
-        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("ServerlessRepository",
-            "us-east-1", "serverless-table", "findAll");
+        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("ServerlessRepository", "serverless-table", "us-east-1", "findAll");
         let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal(expectedCode)
