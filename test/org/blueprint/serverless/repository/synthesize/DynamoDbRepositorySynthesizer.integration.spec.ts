@@ -1,10 +1,10 @@
 import {expect} from 'chai';
 import 'mocha';
 
-import {DynamoDbRepositoryRenderer} from "../../../../../../src/org/blueprint/serverless/repository/synthesize/DynamoDbRepositoryRenderer";
+import {DynamoDbRepositorySynthesizer} from "../../../../../../src/org/blueprint/serverless/repository/synthesize/DynamoDbRepositorySynthesizer";
 import {DynamoDbRepositoryFeatures} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryFeatures";
 
-describe('DynamoDb Repository Renderer (Integration Test)', () => {
+describe('DynamoDb Repository Synthesizer (Integration Test)', () => {
 
     const expectedCode = `
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
@@ -22,9 +22,9 @@ class ServerlessRepository {
 module.exports = ServerlessRepository;`.trim();
 
     it('should return dynamo db repository code', function () {
-        let dynamoDbRepositoryRenderer = new DynamoDbRepositoryRenderer();
+        let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("ServerlessRepository", "serverless-table", "us-east-1", "findAll");
-        let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
+        let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal(expectedCode)
     });

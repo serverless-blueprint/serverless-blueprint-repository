@@ -2,7 +2,7 @@ import {StringTemplate} from "serverless-blueprint-template-engine/src/org/bluep
 import {DynamoDbRepositoryFeatures} from "../model/DynamoDbRepositoryFeatures";
 import {DynamoDbRepositoryTemplate} from "../model/DynamoDbRepositoryTemplate";
 
-export class DynamoDbRepositoryRenderer {
+export class DynamoDbRepositorySynthesizer {
 
     private dbRepositoryTemplate: DynamoDbRepositoryTemplate;
 
@@ -10,7 +10,7 @@ export class DynamoDbRepositoryRenderer {
         this.dbRepositoryTemplate = new DynamoDbRepositoryTemplate();
     }
 
-    render(dynamoDbRepositoryFeatures: DynamoDbRepositoryFeatures): string {
+    synthesize(dynamoDbRepositoryFeatures: DynamoDbRepositoryFeatures): string {
 
         let template = this.dbRepositoryTemplate.load();
         return new StringTemplate(template).mergeWith(dynamoDbRepositoryFeatures);
