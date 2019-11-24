@@ -16,7 +16,7 @@ describe('DynamoDb Repository Synthesizer', () => {
         sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load').callsFake(() => "class {{className}}");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("ServerlessRepository", "", "");
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("ServerlessRepository", "").build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal("class ServerlessRepository", "");
@@ -27,7 +27,7 @@ describe('DynamoDb Repository Synthesizer', () => {
             .callsFake(() => "const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'})");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "", "ap-south-1");
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "").withRegion("ap-south-1").build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal("const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: 'ap-south-1'})");
@@ -38,7 +38,7 @@ describe('DynamoDb Repository Synthesizer', () => {
             .callsFake(() => "module.exports = {{className}}");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("ServerlessRepository", "", "");
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("ServerlessRepository", "").build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal("module.exports = ServerlessRepository");
@@ -49,7 +49,7 @@ describe('DynamoDb Repository Synthesizer', () => {
             .callsFake(() => "async {{findAllMethodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "", "");
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "").build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal("async findAll()");
@@ -60,10 +60,10 @@ describe('DynamoDb Repository Synthesizer', () => {
             .callsFake(() => "async {{findAllMethodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "", "", "scan");
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "").withFindAllMethodName("scan").build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
-        expect(repositoryCode).to.contains("async scan()");
+        expect(repositoryCode).to.equal("async scan()");
     });
 
     it('should return dynamo db repository with a call to scan method of dynamoDbClient', () => {
@@ -71,9 +71,9 @@ describe('DynamoDb Repository Synthesizer', () => {
             .callsFake(() => "await dynamoDbClient.scan(request).promise()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "", "", "findAll");
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "").build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
-        expect(repositoryCode).to.contains("await dynamoDbClient.scan(request).promise()");
+        expect(repositoryCode).to.equal("await dynamoDbClient.scan(request).promise()");
     });
 });
