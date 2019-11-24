@@ -1,36 +1,7 @@
 import {expect} from 'chai';
 import 'mocha';
-import {StringTemplate} from 'serverless-blueprint-template-engine/src/org/blueprint/serverless/template/engine/StringTemplate.js'
-
-const dynamoDbRepositoryTemplate = `
-const dynamo = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
-
-class {{className}} {
-
-    async {{scanMethodName}}() {
-        const tableName = "{{tableName}}"
-        const request = {
-            TableName: {{tableName}}
-        };
-        const promise = await dynamoDbClient.scan(request).promise();
-        return promise.Items;
-    }
-}
-
- module.exports = {{className}};
-`;
-
-class DynamoDbRepositoryRenderer {
-    render(dynamoDbRepositoryFeatures: DynamoDbRepositoryFeatures): string {
-        return new StringTemplate(dynamoDbRepositoryTemplate)
-            .mergeWith(dynamoDbRepositoryFeatures);
-    }
-}
-
-class DynamoDbRepositoryFeatures {
-    constructor(public readonly className: string, public readonly region: string) {
-    }
-}
+import {DynamoDbRepositoryRenderer} from "../../../../../src/org/blueprint/serverless/repository/DynamoDbRepositoryRenderer";
+import {DynamoDbRepositoryFeatures} from "../../../../../src/org/blueprint/serverless/repository/model/DynamoDbFeatures";
 
 describe('DynamoDb Repository Renderer', () => {
 
