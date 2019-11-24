@@ -72,6 +72,34 @@ describe('DynamoDb Repository Synthesizer', () => {
         expect(repositoryCode).to.equal("async scan()");
     });
 
+    it('should return dynamo db repository with findById method', () => {
+        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+            .callsFake(() => "async {{findByIdMethodFeatures.methodName}}()");
+
+        let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "")
+            .supportFindByIdMethod()
+            .withFindByIdMethodName("findById")
+            .build();
+        let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
+
+        expect(repositoryCode).to.equal("async findById()");
+    });
+
+    it('should return dynamo db repository with custom method name for findById', () => {
+        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+            .callsFake(() => "async {{findByIdMethodFeatures.methodName}}()");
+
+        let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "")
+            .supportFindByIdMethod()
+            .withFindByIdMethodName("findByAnId")
+            .build();
+        let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
+
+        expect(repositoryCode).to.equal("async findByAnId()");
+    });
+
     it('should return dynamo db repository with a call to scan method of dynamoDbClient', () => {
         sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
             .callsFake(() => "await dynamoDbClient.scan(request).promise()");

@@ -3,8 +3,7 @@ export class DynamoDbRepositoryFeatures {
                 public readonly tableName: string,
                 public readonly region: string,
                 public readonly findAllMethodFeatures: FindAllMethodFeatures,
-                public readonly findByIdMethodSupported: boolean,
-                public readonly findByIdMethodName: string) {
+                public readonly findByIdMethodFeatures: FindByIdMethodFeatures) {
     }
 
     static builder(className: string, tableName: string) {
@@ -16,11 +15,17 @@ export class DynamoDbRepositoryFeatures {
     }
 
     isFindByIdRequired(): boolean {
-        return this.findByIdMethodSupported;
+        return this.findByIdMethodFeatures.methodSupported;
     }
 }
 
 class FindAllMethodFeatures {
+    constructor(public readonly methodSupported: boolean,
+                public readonly methodName: string) {
+    }
+}
+
+class FindByIdMethodFeatures {
     constructor(public readonly methodSupported: boolean,
                 public readonly methodName: string) {
     }
@@ -67,7 +72,6 @@ class DynamoDbRepositoryFeaturesBuilder {
             this.tableName,
             this.region,
             new FindAllMethodFeatures(this.findAllMethodSupported, this.findAllMethodName),
-            this.findByIdMethodSupported,
-            this.findByIdMethodName);
+            new FindByIdMethodFeatures(this.findByIdMethodSupported, this.findByIdMethodName));
     }
 }
