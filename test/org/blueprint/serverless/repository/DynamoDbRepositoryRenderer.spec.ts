@@ -15,11 +15,19 @@ describe('DynamoDb Repository Renderer', () => {
         expect(repositoryCode).to.contains("class ServerlessRepository", "");
     });
 
-    it('should return dynamo db repository dynamo db client initialized globally', () => {
+    it('should return dynamo db repository with dynamo db client initialized globally', () => {
         let dynamoDbRepositoryRenderer = new DynamoDbRepositoryRenderer();
         let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "ap-south-1");
         let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
 
-        expect(repositoryCode).to.contains("const dynamo = new AWS.DynamoDB.DocumentClient({region: 'ap-south-1'});");
+        expect(repositoryCode).to.contains("const dynamo = new AWS.DynamoDB.DocumentClient({region: 'ap-south-1'})");
+    });
+
+    it('should return dynamo db repository with module.exports statement', () => {
+        let dynamoDbRepositoryRenderer = new DynamoDbRepositoryRenderer();
+        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("ServerlessRepository", "");
+        let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
+
+        expect(repositoryCode).to.contains("module.exports = ServerlessRepository");
     });
 });
