@@ -11,12 +11,13 @@
     "url": "https://github.com/serverless-blueprint/serverless-blueprint-repository/issues"
   },
   "homepage": "https://github.com/serverless-blueprint/serverless-blueprint-repository#readme",
-  "dependencies": {
-    "typescript": "^3.7.2"
-  },
   "scripts": {
     "build": "tsc",
     "test": "mocha -r ts-node/register test/**/*.spec.ts"
+  },
+  "dependencies": {
+    "serverless-blueprint-template-engine": "file:../serverless-blueprint-template-engine",
+    "typescript": "^3.7.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.5",
