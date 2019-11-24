@@ -1,7 +1,7 @@
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
 class {{className}} {
 
-{{#isFindAllRequired}}
+    {{#isFindAllRequired}}
     async {{findAllMethodFeatures.methodName}}() {
         const request = {
             TableName: "{{tableName}}"
@@ -9,8 +9,8 @@ class {{className}} {
         const promise = await dynamoDbClient.scan(request).promise();
         return promise.Items;
     }
-{{/isFindAllRequired}}
-{{#isFindByIdRequired}}
+    {{/isFindAllRequired}}
+    {{#isFindByIdRequired}}
     async {{findByIdMethodFeatures.methodName}}(id) {
         const request = {
             TableName: "{{tableName}}",
@@ -21,7 +21,7 @@ class {{className}} {
         const promise = await dynamoDbClient.get(request).promise();
         return promise.Items;
     }
-{{/isFindByIdRequired}}
+    {{/isFindByIdRequired}}
 }
 
 module.exports = {{className}};
