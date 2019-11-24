@@ -36,4 +36,12 @@ describe('DynamoDb Repository Renderer', () => {
 
         expect(repositoryCode).to.contains("async findAll()");
     });
+
+    it('should return dynamo db repository with custom method name for findAll', () => {
+        let dynamoDbRepositoryRenderer = new DynamoDbRepositoryRenderer();
+        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "", "scan");
+        let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
+
+        expect(repositoryCode).to.contains("async scan()");
+    });
 });
