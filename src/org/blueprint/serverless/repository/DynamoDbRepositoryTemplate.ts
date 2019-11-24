@@ -1,24 +1,13 @@
-const dynamoDbRepositoryTemplate = `
-const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
-
-class {{className}} {
-
-    async {{findAllMethodName}}() {
-        const tableName = "{{tableName}}"
-        const request = {
-            TableName: {{tableName}}
-        };
-        const promise = await dynamoDbClient.scan(request).promise();
-        return promise.Items;
-    }
-}
-
- module.exports = {{className}};
-`;
+import * as fs from 'fs';
+import * as path from 'path';
 
 export class DynamoDbRepositoryTemplate {
 
+    constructor(private templatePath: string = "/resources/code.template") {
+    }
+
     load(): string {
-        return dynamoDbRepositoryTemplate;
+        const filePath = path.join(__dirname, this.templatePath);
+        return fs.readFileSync(filePath, "utf8");
     }
 }
