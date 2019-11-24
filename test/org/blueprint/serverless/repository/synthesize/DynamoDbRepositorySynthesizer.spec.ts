@@ -46,10 +46,13 @@ describe('DynamoDb Repository Synthesizer', () => {
 
     it('should return dynamo db repository with findAll method', () => {
         sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
-            .callsFake(() => "async {{findAllMethodName}}()");
+            .callsFake(() => "async {{findAllMethodFeatures.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "").build();
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "")
+            .supportFindAllMethod()
+            .withFindAllMethodName("findAll")
+            .build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal("async findAll()");
@@ -57,10 +60,13 @@ describe('DynamoDb Repository Synthesizer', () => {
 
     it('should return dynamo db repository with custom method name for findAll', () => {
         sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
-            .callsFake(() => "async {{findAllMethodName}}()");
+            .callsFake(() => "async {{findAllMethodFeatures.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "").withFindAllMethodName("scan").build();
+        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "")
+            .supportFindAllMethod()
+            .withFindAllMethodName("scan")
+            .build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
 
         expect(repositoryCode).to.equal("async scan()");

@@ -2,7 +2,7 @@ const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
 class {{className}} {
 
 {{#isFindAllRequired}}
-    async {{findAllMethodName}}() {
+    async {{findAllMethodFeatures.methodName}}() {
         const request = {
             TableName: "{{tableName}}"
         };
