@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import {DynamoDbRepositoryRenderer} from "../../../../../src/org/blueprint/serverless/repository/DynamoDbRepositoryRenderer";
 import {DynamoDbRepositoryFeatures} from "../../../../../src/org/blueprint/serverless/repository/model/DynamoDbFeatures";
-import {DynamoDbRepositoryTemplate} from "../../../../../src/org/blueprint/serverless/repository/DynamoDbRepositoryTemplate";
+import {DynamoDbRepositoryTemplate} from "../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplate";
 
 describe('DynamoDb Repository Renderer', () => {
 

@@ -3,7 +3,7 @@ import * as path from 'path';
 
 export class DynamoDbRepositoryTemplate {
 
-    constructor(private templatePath: string = "/resources/code.template") {
+    constructor(private templatePath: string = "../resources/code.template") {
     }
 
     load(): string {
