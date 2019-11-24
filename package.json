@@ -10,5 +10,19 @@
   "bugs": {
     "url": "https://github.com/serverless-blueprint/serverless-blueprint-repository/issues"
   },
-  "homepage": "https://github.com/serverless-blueprint/serverless-blueprint-repository#readme"
+  "homepage": "https://github.com/serverless-blueprint/serverless-blueprint-repository#readme",
+  "dependencies": {
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha -r ts-node/register test/**/*.spec.ts"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.5",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.5.2"
+  }
 }

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "noEmitOnError": true,
+    "outDir": "./out",
+    "sourceRoot": "src/",
+    "sourceMap": true,
+    "target": "es6"
+  }
+}
