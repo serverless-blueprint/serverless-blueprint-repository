@@ -28,4 +28,12 @@ describe('DynamoDb Repository Renderer', () => {
 
         expect(repositoryCode).to.contains("module.exports = ServerlessRepository");
     });
+
+    it('should return dynamo db repository with findAll method', () => {
+        let dynamoDbRepositoryRenderer = new DynamoDbRepositoryRenderer();
+        let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "");
+        let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
+
+        expect(repositoryCode).to.contains("async findAll()");
+    });
 });
