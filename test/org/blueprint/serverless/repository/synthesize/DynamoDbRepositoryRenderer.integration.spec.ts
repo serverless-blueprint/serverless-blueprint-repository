@@ -1,8 +1,8 @@
 import {expect} from 'chai';
 import 'mocha';
 
-import {DynamoDbRepositoryRenderer} from "../../../../../src/org/blueprint/serverless/repository/DynamoDbRepositoryRenderer";
-import {DynamoDbRepositoryFeatures} from "../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryFeatures";
+import {DynamoDbRepositoryRenderer} from "../../../../../../src/org/blueprint/serverless/repository/synthesize/DynamoDbRepositoryRenderer";
+import {DynamoDbRepositoryFeatures} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryFeatures";
 
 describe('DynamoDb Repository Renderer (Integration Test)', () => {
 

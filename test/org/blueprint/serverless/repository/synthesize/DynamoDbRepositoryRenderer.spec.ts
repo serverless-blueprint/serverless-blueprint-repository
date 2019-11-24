@@ -2,9 +2,9 @@ import {expect} from 'chai';
 import 'mocha';
 import * as sinon from 'sinon';
 
-import {DynamoDbRepositoryRenderer} from "../../../../../src/org/blueprint/serverless/repository/DynamoDbRepositoryRenderer";
-import {DynamoDbRepositoryFeatures} from "../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryFeatures";
-import {DynamoDbRepositoryTemplate} from "../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplate";
+import {DynamoDbRepositoryRenderer} from "../../../../../../src/org/blueprint/serverless/repository/synthesize/DynamoDbRepositoryRenderer";
+import {DynamoDbRepositoryFeatures} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryFeatures";
+import {DynamoDbRepositoryTemplate} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplate";
 
 describe('DynamoDb Repository Renderer', () => {
 
