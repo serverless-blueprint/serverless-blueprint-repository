@@ -1,10 +1,29 @@
 import {expect} from 'chai';
 import 'mocha';
+import {StringTemplate} from 'serverless-blueprint-template-engine/src/org/blueprint/serverless/template/engine/StringTemplate.js'
+
+const dynamoDbRepositoryTemplate = `
+const dynamo = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
+
+class {{className}} {
+
+    async {{scanMethodName}}() {
+        const tableName = "{{tableName}}"
+        const request = {
+            TableName: {{tableName}}
+        };
+        const promise = await dynamoDbClient.scan(request).promise();
+        return promise.Items;
+    }
+}
+
+ module.exports = {{className}};
+`;
 
 class DynamoDbRepositoryRenderer {
     render(dynamoDbRepositoryFeatures: DynamoDbRepositoryFeatures): string {
-        return `const dynamo = new AWS.DynamoDB.DocumentClient({region: '${dynamoDbRepositoryFeatures.region}'});`
-        + `class ${dynamoDbRepositoryFeatures.className}`;
+        return new StringTemplate(dynamoDbRepositoryTemplate)
+            .mergeWith(dynamoDbRepositoryFeatures);
     }
 }
 
@@ -19,6 +38,8 @@ describe('DynamoDb Repository Renderer', () => {
         let dynamoDbRepositoryRenderer = new DynamoDbRepositoryRenderer();
         let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("ServerlessRepository", "ap-south-1");
         let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
+
+        console.log(repositoryCode);
 
         expect(repositoryCode).to.contains("class ServerlessRepository", "");
     });
