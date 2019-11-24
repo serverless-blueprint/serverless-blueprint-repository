@@ -18,7 +18,7 @@ describe('DynamoDb Repository Renderer', () => {
         let dynamoDbRepositoryFeatures = new DynamoDbRepositoryFeatures("", "ap-south-1");
         let repositoryCode = dynamoDbRepositoryRenderer.render(dynamoDbRepositoryFeatures);
 
-        expect(repositoryCode).to.contains("const dynamo = new AWS.DynamoDB.DocumentClient({region: 'ap-south-1'})");
+        expect(repositoryCode).to.contains("const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: 'ap-south-1'})");
     });
 
     it('should return dynamo db repository with module.exports statement', () => {

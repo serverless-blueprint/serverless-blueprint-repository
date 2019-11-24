@@ -2,7 +2,7 @@ import {StringTemplate} from "serverless-blueprint-template-engine/src/org/bluep
 import {DynamoDbRepositoryFeatures} from "./model/DynamoDbFeatures";
 
 const dynamoDbRepositoryTemplate = `
-const dynamo = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
+const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
 
 class {{className}} {
 
