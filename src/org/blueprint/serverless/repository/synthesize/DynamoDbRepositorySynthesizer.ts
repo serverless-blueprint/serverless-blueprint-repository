@@ -13,6 +13,24 @@ export class DynamoDbRepositorySynthesizer {
     synthesize(dynamoDbRepositoryFeatures: DynamoDbRepositoryFeatures): string {
 
         let template = this.dbRepositoryTemplate.load();
-        return new StringTemplate(template).mergeWith(dynamoDbRepositoryFeatures);
+        let includes = {};
+        if (dynamoDbRepositoryFeatures.isFindAllRequired()) {
+            includes = {
+                "findAllMethod": this
+                    .dbRepositoryTemplate
+                    .load("../resources/findAllMethod.template")
+            };
+        }
+        if (dynamoDbRepositoryFeatures.isFindByIdRequired()) {
+            includes = {
+                ...includes, ...{
+                    "findByIdMethod": this
+                        .dbRepositoryTemplate
+                        .load("../resources/findByIdMethod.template")
+                }
+            };
+        }
+
+        return new StringTemplate(template).mergeWith(dynamoDbRepositoryFeatures, includes);
     }
 }

@@ -1,0 +1,7 @@
+async {{findAllMethodFeatures.methodName}}() {
+    const request = {
+        TableName: "{{tableName}}"
+    };
+    const promise = await dynamoDbClient.scan(request).promise();
+    return promise.Items;
+}

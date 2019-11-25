@@ -1,0 +1,10 @@
+async {{findByIdMethodFeatures.methodName}}(id) {
+    const request = {
+        TableName: "{{tableName}}",
+        Key: {
+            "id": id
+        }
+    };
+    const promise = await dynamoDbClient.get(request).promise();
+    return promise.Items;
+}

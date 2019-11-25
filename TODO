@@ -1,0 +1,5 @@
+1. Should DynamoDbRepositoryFeatures be refactored further to include
+    CoreFeatures and MethodFeatures
+2. Check partials of mustache to make template more readable
+3. Move FindAllMethodFeatures and FindByIdMethodFeatures in their own classes
+4. Somehow DynamoDbRepositoryFeatures should be able to tell what all methods are required?

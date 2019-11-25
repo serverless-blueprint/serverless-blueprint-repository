@@ -1,27 +1,8 @@
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
 class {{className}} {
 
-    {{#isFindAllRequired}}
-    async {{findAllMethodFeatures.methodName}}() {
-        const request = {
-            TableName: "{{tableName}}"
-        };
-        const promise = await dynamoDbClient.scan(request).promise();
-        return promise.Items;
-    }
-    {{/isFindAllRequired}}
-    {{#isFindByIdRequired}}
-    async {{findByIdMethodFeatures.methodName}}(id) {
-        const request = {
-            TableName: "{{tableName}}",
-            Key: {
-                "id": id
-            }
-        };
-        const promise = await dynamoDbClient.get(request).promise();
-        return promise.Items;
-    }
-    {{/isFindByIdRequired}}
+    {{>findAllMethod}}
+    {{>findByIdMethod}}
 }
 
 module.exports = {{className}};
