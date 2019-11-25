@@ -12,34 +12,19 @@ export class DynamoDbRepositorySynthesizer {
 
     synthesize(dynamoDbRepositoryAttributes: DynamoDbRepositoryAttributes): string {
 
-        let allSupportedMethods = dynamoDbRepositoryAttributes.supportedMethods();
+        let template = this.dbRepositoryTemplate.load();
+        let placeholders = dynamoDbRepositoryAttributes.repositoryAttributes();
 
-        let map = allSupportedMethods
-            .map(method => {
-                return {
-                    [method.id()]: method.allAttributes()
-                }
-            });
+        let includes = this.findSubTemplatesFor(dynamoDbRepositoryAttributes.supportedMethods());
+        return new StringTemplate(template).mergeWith(placeholders, includes);
+    }
 
-        let combined = Object.assign({}, ...map);
-        let data = {
-            ...combined, ...{
-                className: dynamoDbRepositoryAttributes.className,
-                tableName: dynamoDbRepositoryAttributes.tableName,
-                region: dynamoDbRepositoryAttributes.region
-            }
-        };
-
-        let map1 = allSupportedMethods.map(method => {
+    private findSubTemplatesFor(supportedMethods) {
+        let methodIdToTemplateContentMappings = supportedMethods.map(method => {
             return {
-                [method.id()]: this
-                    .dbRepositoryTemplate
-                    .load("../resources/" + method.id() + ".template")
+                [method.id()]: this.dbRepositoryTemplate.load(`../resources/${method.id()}.template`)
             }
         });
-        let includes = Object.assign({}, ...map1);
-
-        let template = this.dbRepositoryTemplate.load();
-        return new StringTemplate(template).mergeWith(data, includes);
+        return Object.assign({}, ...methodIdToTemplateContentMappings);
     }
 }

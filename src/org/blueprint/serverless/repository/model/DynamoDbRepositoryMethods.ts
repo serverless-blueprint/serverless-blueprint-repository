@@ -1,14 +1,21 @@
-export interface DynamoDbRepositoryMethod {
-    readonly supported: boolean
+export abstract class DynamoDbRepositoryMethod {
+    readonly supported: boolean;
 
-    id(): string
+    abstract id(): string
 
-    allAttributes(): { [key: string]: any }
+    abstract allAttributes(): { [key: string]: any }
+
+    idToAttributeMapping() {
+        return {
+            [this.id()]: this.allAttributes()
+        }
+    }
 }
 
-export class FindAllMethod implements DynamoDbRepositoryMethod {
+export class FindAllMethod extends DynamoDbRepositoryMethod {
     constructor(public readonly supported: boolean,
                 public readonly methodName: string) {
+        super();
     }
 
     id(): string {
@@ -22,9 +29,10 @@ export class FindAllMethod implements DynamoDbRepositoryMethod {
     }
 }
 
-export class FindByIdMethod implements DynamoDbRepositoryMethod {
+export class FindByIdMethod extends DynamoDbRepositoryMethod {
     constructor(public readonly supported: boolean,
                 public readonly methodName: string) {
+        super();
     }
 
     id(): string {

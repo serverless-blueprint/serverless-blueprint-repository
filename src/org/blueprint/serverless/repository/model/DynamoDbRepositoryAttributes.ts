@@ -18,6 +18,19 @@ export class DynamoDbRepositoryAttributes {
     supportedMethods(): DynamoDbRepositoryMethod[] {
         return this.methods.filter(method => method.supported)
     }
+
+    repositoryAttributes() {
+        let idToAttributeMappings = this.supportedMethods().map(method => method.idToAttributeMapping());
+        let reducedIdToAttributeMapping = Object.assign({}, ...idToAttributeMappings);
+
+        return {
+            ...reducedIdToAttributeMapping, ...{
+                className: this.className,
+                tableName: this.tableName,
+                region: this.region
+            }
+        };
+    }
 }
 
 class DynamoDbRepositoryAttributeBuilder {
