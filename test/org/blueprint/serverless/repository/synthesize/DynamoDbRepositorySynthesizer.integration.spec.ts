@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import 'mocha';
 
 import {DynamoDbRepositorySynthesizer} from "../../../../../../src/org/blueprint/serverless/repository/synthesize/DynamoDbRepositorySynthesizer";
-import {DynamoDbRepositoryFeatures} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryFeatures";
+import {DynamoDbRepositoryAttributes} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryAttributes";
 
 describe('DynamoDb Repository Synthesizer (Integration Test)', () => {
 
@@ -41,24 +41,24 @@ module.exports = ServerlessRepository;`.trim();
 
     it('should return dynamo db repository code with find all method', function () {
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures
+        let dynamoDbRepositoryAttributes = DynamoDbRepositoryAttributes
             .builder("ServerlessRepository", "serverless-table")
             .supportFindAllMethod()
             .withFindAllMethodName( "findAll").build();
 
-        let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
+        let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryAttributes);
 
         expect(repositoryCode).to.equal(codeWithFindAll)
     });
 
     it('should return dynamo db repository code with find by id method', function () {
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
-        let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures
+        let dynamoDbRepositoryAttributes = DynamoDbRepositoryAttributes
             .builder("ServerlessRepository", "serverless-table")
             .supportFindByIdMethod()
             .withFindByIdMethodName( "findById").build();
 
-        let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryFeatures);
+        let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryAttributes);
 
         expect(repositoryCode).to.equal(codeWithFindById)
     });

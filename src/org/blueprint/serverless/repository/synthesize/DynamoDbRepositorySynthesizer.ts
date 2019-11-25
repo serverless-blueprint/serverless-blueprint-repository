@@ -1,5 +1,5 @@
 import {StringTemplate} from "serverless-blueprint-template-engine/src/org/blueprint/serverless/template/engine/StringTemplate";
-import {DynamoDbRepositoryFeatures} from "../model/DynamoDbRepositoryFeatures";
+import {DynamoDbRepositoryAttributes} from "../model/DynamoDbRepositoryAttributes";
 import {DynamoDbRepositoryTemplate} from "../model/DynamoDbRepositoryTemplate";
 
 export class DynamoDbRepositorySynthesizer {
@@ -10,31 +10,31 @@ export class DynamoDbRepositorySynthesizer {
         this.dbRepositoryTemplate = new DynamoDbRepositoryTemplate();
     }
 
-    synthesize(dynamoDbRepositoryFeatures: DynamoDbRepositoryFeatures): string {
+    synthesize(dynamoDbRepositoryAttributes: DynamoDbRepositoryAttributes): string {
 
-        let allSupportedFeatures = dynamoDbRepositoryFeatures.supportedFeatures();
+        let allSupportedMethods = dynamoDbRepositoryAttributes.supportedMethods();
 
-        let map = allSupportedFeatures
-            .map(feature => {
+        let map = allSupportedMethods
+            .map(method => {
                 return {
-                    [feature.featureId()]: feature.all()
+                    [method.id()]: method.allAttributes()
                 }
             });
 
         let combined = Object.assign({}, ...map);
         let data = {
             ...combined, ...{
-                className: dynamoDbRepositoryFeatures.className,
-                tableName: dynamoDbRepositoryFeatures.tableName,
-                region: dynamoDbRepositoryFeatures.region
+                className: dynamoDbRepositoryAttributes.className,
+                tableName: dynamoDbRepositoryAttributes.tableName,
+                region: dynamoDbRepositoryAttributes.region
             }
         };
 
-        let map1 = allSupportedFeatures.map(feature => {
+        let map1 = allSupportedMethods.map(method => {
             return {
-                [feature.featureId()]: this
+                [method.id()]: this
                     .dbRepositoryTemplate
-                    .load("../resources/" + feature.featureId() + ".template")
+                    .load("../resources/" + method.id() + ".template")
             }
         });
         let includes = Object.assign({}, ...map1);

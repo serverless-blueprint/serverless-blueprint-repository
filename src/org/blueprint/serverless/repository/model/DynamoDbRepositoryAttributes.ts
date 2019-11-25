@@ -1,26 +1,26 @@
 import {
-    FindAllMethodFeatures,
-    FindByIdMethodFeatures,
-    MethodFeatures
-} from "./DynamoDbMethodFeatures";
+    FindAllMethod,
+    FindByIdMethod,
+    DynamoDbRepositoryMethod
+} from "./DynamoDbRepositoryMethods";
 
-export class DynamoDbRepositoryFeatures {
+export class DynamoDbRepositoryAttributes {
     constructor(public readonly className: string,
                 public readonly tableName: string,
                 public readonly region: string,
-                private readonly methodFeatures: Array<MethodFeatures>) {
+                private readonly methods: Array<DynamoDbRepositoryMethod>) {
     }
 
     static builder(className: string, tableName: string) {
-        return new DynamoDbRepositoryFeaturesBuilder(className, tableName)
+        return new DynamoDbRepositoryAttributeBuilder(className, tableName)
     }
 
-    supportedFeatures(): MethodFeatures[] {
-        return this.methodFeatures.filter(feature => feature.methodSupported)
+    supportedMethods(): DynamoDbRepositoryMethod[] {
+        return this.methods.filter(method => method.supported)
     }
 }
 
-class DynamoDbRepositoryFeaturesBuilder {
+class DynamoDbRepositoryAttributeBuilder {
     private region: string = "us-east-1";
     private findAllMethodName: string = "findAll";
     private findByIdMethodName: string = "findById";
@@ -56,14 +56,14 @@ class DynamoDbRepositoryFeaturesBuilder {
     }
 
     build() {
-        return new DynamoDbRepositoryFeatures(
+        return new DynamoDbRepositoryAttributes(
             this.className,
             this.tableName,
             this.region,
             Array.of(
-                new FindAllMethodFeatures(this.findAllMethodSupported,
+                new FindAllMethod(this.findAllMethodSupported,
                     this.findAllMethodName),
-                new FindByIdMethodFeatures(this.findByIdMethodSupported,
+                new FindByIdMethod(this.findByIdMethodSupported,
                     this.findByIdMethodName))
         );
     }
