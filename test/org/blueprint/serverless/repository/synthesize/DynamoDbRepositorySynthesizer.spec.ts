@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import {DynamoDbRepositorySynthesizer} from "../../../../../../src/org/blueprint/serverless/repository/synthesize/DynamoDbRepositorySynthesizer";
 import {DynamoDbRepositoryAttributes} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryAttributes";
-import {DynamoDbRepositoryTemplate} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplate";
+import {DynamoDbRepositoryTemplateFinder} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateFinder";
 
 describe('DynamoDb Repository Synthesizer', () => {
 
@@ -13,7 +13,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with specified class name', () => {
-        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load').callsFake(() => "class {{className}}");
+        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load').callsFake(() => "class {{className}}");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryAttributes = DynamoDbRepositoryAttributes.builder("ServerlessRepository", "").build();
@@ -23,7 +23,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with dynamo db client initialized globally', () => {
-        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
             .callsFake(() => "const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'})");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -34,7 +34,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with module.exports statement', () => {
-        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
             .callsFake(() => "module.exports = {{className}}");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -45,7 +45,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with findAll method', () => {
-        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
             .callsFake(() => "async {{findAllMethod.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -59,7 +59,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with custom method name for findAll', () => {
-        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
             .callsFake(() => "async {{findAllMethod.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -73,7 +73,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with findById method', () => {
-        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
             .callsFake(() => "async {{findByIdMethod.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -87,7 +87,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with custom method name for findById', () => {
-        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
             .callsFake(() => "async {{findByIdMethod.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -101,7 +101,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with a call to scan method of dynamoDbClient', () => {
-        sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
+        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
             .callsFake(() => "await dynamoDbClient.scan(request).promise()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
