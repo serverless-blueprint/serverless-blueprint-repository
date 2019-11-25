@@ -1,4 +1,4 @@
-async {{findByIdMethodFeatures.methodName}}(id) {
+async {{findByIdMethod.methodName}}(id) {
     const request = {
         TableName: "{{tableName}}",
         Key: {

@@ -2,32 +2,55 @@ export class DynamoDbRepositoryFeatures {
     constructor(public readonly className: string,
                 public readonly tableName: string,
                 public readonly region: string,
-                public readonly findAllMethodFeatures: FindAllMethodFeatures,
-                public readonly findByIdMethodFeatures: FindByIdMethodFeatures) {
+                private readonly methodFeatures: Array<MethodFeatures>) {
     }
 
     static builder(className: string, tableName: string) {
         return new DynamoDbRepositoryFeaturesBuilder(className, tableName)
     }
 
-    isFindAllRequired(): boolean {
-        return this.findAllMethodFeatures.methodSupported;
-    }
-
-    isFindByIdRequired(): boolean {
-        return this.findByIdMethodFeatures.methodSupported;
+    supportedFeatures(): MethodFeatures[] {
+        return this.methodFeatures.filter(feature => feature.methodSupported)
     }
 }
 
-class FindAllMethodFeatures {
+export interface MethodFeatures {
+    readonly methodSupported: boolean
+
+    featureId(): string
+
+    all(): { [key: string]: any }
+}
+
+class FindAllMethodFeatures implements MethodFeatures {
     constructor(public readonly methodSupported: boolean,
                 public readonly methodName: string) {
     }
+
+    featureId(): string {
+        return "findAllMethod";
+    }
+
+    all() {
+        return {
+            "methodName": this.methodName
+        };
+    }
 }
 
-class FindByIdMethodFeatures {
+class FindByIdMethodFeatures implements MethodFeatures {
     constructor(public readonly methodSupported: boolean,
                 public readonly methodName: string) {
+    }
+
+    featureId(): string {
+        return "findByIdMethod";
+    }
+
+    all() {
+        return {
+            "methodName": this.methodName
+        }
     }
 }
 
@@ -71,7 +94,11 @@ class DynamoDbRepositoryFeaturesBuilder {
             this.className,
             this.tableName,
             this.region,
-            new FindAllMethodFeatures(this.findAllMethodSupported, this.findAllMethodName),
-            new FindByIdMethodFeatures(this.findByIdMethodSupported, this.findByIdMethodName));
+            Array.of(
+                new FindAllMethodFeatures(this.findAllMethodSupported,
+                    this.findAllMethodName),
+                new FindByIdMethodFeatures(this.findByIdMethodSupported,
+                    this.findByIdMethodName))
+        );
     }
 }

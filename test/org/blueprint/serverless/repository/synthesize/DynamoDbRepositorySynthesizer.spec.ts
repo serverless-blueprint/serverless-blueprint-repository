@@ -46,7 +46,7 @@ describe('DynamoDb Repository Synthesizer', () => {
 
     it('should return dynamo db repository with findAll method', () => {
         sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
-            .callsFake(() => "async {{findAllMethodFeatures.methodName}}()");
+            .callsFake(() => "async {{findAllMethod.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "")
@@ -60,7 +60,7 @@ describe('DynamoDb Repository Synthesizer', () => {
 
     it('should return dynamo db repository with custom method name for findAll', () => {
         sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
-            .callsFake(() => "async {{findAllMethodFeatures.methodName}}()");
+            .callsFake(() => "async {{findAllMethod.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "")
@@ -74,7 +74,7 @@ describe('DynamoDb Repository Synthesizer', () => {
 
     it('should return dynamo db repository with findById method', () => {
         sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
-            .callsFake(() => "async {{findByIdMethodFeatures.methodName}}()");
+            .callsFake(() => "async {{findByIdMethod.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "")
@@ -88,7 +88,7 @@ describe('DynamoDb Repository Synthesizer', () => {
 
     it('should return dynamo db repository with custom method name for findById', () => {
         sinon.stub(DynamoDbRepositoryTemplate.prototype, 'load')
-            .callsFake(() => "async {{findByIdMethodFeatures.methodName}}()");
+            .callsFake(() => "async {{findByIdMethod.methodName}}()");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryFeatures = DynamoDbRepositoryFeatures.builder("", "")
