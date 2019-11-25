@@ -1,3 +1,9 @@
+import {
+    FindAllMethodFeatures,
+    FindByIdMethodFeatures,
+    MethodFeatures
+} from "./DynamoDbMethodFeatures";
+
 export class DynamoDbRepositoryFeatures {
     constructor(public readonly className: string,
                 public readonly tableName: string,
@@ -11,46 +17,6 @@ export class DynamoDbRepositoryFeatures {
 
     supportedFeatures(): MethodFeatures[] {
         return this.methodFeatures.filter(feature => feature.methodSupported)
-    }
-}
-
-export interface MethodFeatures {
-    readonly methodSupported: boolean
-
-    featureId(): string
-
-    all(): { [key: string]: any }
-}
-
-class FindAllMethodFeatures implements MethodFeatures {
-    constructor(public readonly methodSupported: boolean,
-                public readonly methodName: string) {
-    }
-
-    featureId(): string {
-        return "findAllMethod";
-    }
-
-    all() {
-        return {
-            "methodName": this.methodName
-        };
-    }
-}
-
-class FindByIdMethodFeatures implements MethodFeatures {
-    constructor(public readonly methodSupported: boolean,
-                public readonly methodName: string) {
-    }
-
-    featureId(): string {
-        return "findByIdMethod";
-    }
-
-    all() {
-        return {
-            "methodName": this.methodName
-        }
     }
 }
 
