@@ -3,7 +3,7 @@ import * as path from 'path';
 
 export class DynamoDbRepositoryTemplateFinder {
 
-    constructor(private templatePath: string = "../resources/code.template") {
+    constructor(private templatePath: string = "../resources/repositoryClass.template") {
     }
 
     load(templatePath: string = this.templatePath): string {
