@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-type MethodIdToTemplateMapping = { [key: string]: string };
+export type MethodIdToTemplateMapping = { [key: string]: string };
 
 export class DynamoDbRepositoryMethodIdTemplatePathMapping {
 
@@ -11,8 +11,8 @@ export class DynamoDbRepositoryMethodIdTemplatePathMapping {
 
     constructor() {
         this.mapping = {
-            "findAllMethod": "./resources/findAllMethod.template",
-            "findByIdMethod": "./resources/findByIdMethod.template"
+            "findAllMethod": "../resources/findAllMethod.template",
+            "findByIdMethod": "../resources/findByIdMethod.template"
         };
     }
 
@@ -29,6 +29,11 @@ export class DynamoDbRepositoryMethodIdTemplatePathMapping {
             throw new NoTemplatePathRegisteredException(methodId);
         }
         const filePath = path.join(__dirname, templatePath);
+        return fs.readFileSync(filePath, "utf8");
+    }
+
+    loadRepositoryClassTemplate() {
+        const filePath = path.join(__dirname, "../resources/repositoryClass.template");
         return fs.readFileSync(filePath, "utf8");
     }
 

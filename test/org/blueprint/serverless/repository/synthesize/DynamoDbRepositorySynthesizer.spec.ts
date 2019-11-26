@@ -4,27 +4,36 @@ import * as sinon from 'sinon';
 
 import {DynamoDbRepositorySynthesizer} from "../../../../../../src/org/blueprint/serverless/repository/synthesize/DynamoDbRepositorySynthesizer";
 import {DynamoDbRepositoryTemplateAttributes} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateAttributes";
-import {DynamoDbRepositoryTemplateFinder} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateFinder";
+import {DynamoDbRepositoryMethodIdTemplatePathMapping} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryMethodIdTemplatePathMapping";
 
 describe('DynamoDb Repository Synthesizer', () => {
+
+    let instance;
+    let mock;
+
+    beforeEach(() => {
+        instance = DynamoDbRepositoryMethodIdTemplatePathMapping.instance();
+        mock = sinon.mock(instance);
+    });
 
     afterEach(() => {
         sinon.restore();
     });
 
     it('should return dynamo db repository with specified class name', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load').callsFake(() => "class {{className}}");
+
+        mock.expects("loadRepositoryClassTemplate").returns("class {{className}}");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("ServerlessRepository", "").build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 
-        expect(repositoryCode).to.equal("class ServerlessRepository", "");
+        expect(repositoryCode).to.equal("class ServerlessRepository");
     });
 
     it('should return dynamo db repository with dynamo db client initialized globally', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'})");
+        mock.expects("loadRepositoryClassTemplate")
+            .returns("const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'})");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "").withRegion("ap-south-1").build();
@@ -34,8 +43,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with module.exports statement', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "module.exports = {{className}}");
+        mock.expects("loadRepositoryClassTemplate").returns("module.exports = {{className}}");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("ServerlessRepository", "").build();
@@ -45,8 +53,8 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with findAll method', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "async {{findAllMethod.methodName}}()");
+        mock.expects("loadRepositoryClassTemplate").returns("async {{findAllMethod.methodName}}()");
+        mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
@@ -59,8 +67,8 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with custom method name for findAll', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "async {{findAllMethod.methodName}}()");
+        mock.expects("loadRepositoryClassTemplate").returns("async {{findAllMethod.methodName}}()");
+        mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
@@ -73,8 +81,8 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with findById method', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "async {{findByIdMethod.methodName}}()");
+        mock.expects("loadRepositoryClassTemplate").returns("async {{findByIdMethod.methodName}}()");
+        mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
@@ -87,8 +95,8 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with custom method name for findById', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "async {{findByIdMethod.methodName}}()");
+        mock.expects("loadRepositoryClassTemplate").returns("async {{findByIdMethod.methodName}}()");
+        mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
@@ -101,8 +109,8 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with custom key column name for findById', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "{{findByIdMethod.keyColumnName}}: id");
+        mock.expects("loadRepositoryClassTemplate").returns("{{findByIdMethod.keyColumnName}}: id");
+        mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
@@ -116,8 +124,8 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with default key column name for findById', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "{{findByIdMethod.keyColumnName}}: id");
+        mock.expects("loadRepositoryClassTemplate").returns("{{findByIdMethod.keyColumnName}}: id");
+        mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
@@ -130,8 +138,8 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with a call to scan method of dynamoDbClient', () => {
-        sinon.stub(DynamoDbRepositoryTemplateFinder.prototype, 'load')
-            .callsFake(() => "await dynamoDbClient.scan(request).promise()");
+        mock.expects("loadRepositoryClassTemplate").returns("await dynamoDbClient.scan(request).promise()");
+        mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "").build();

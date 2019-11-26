@@ -1,18 +1,18 @@
 import {StringTemplate} from "serverless-blueprint-template-engine/src/org/blueprint/serverless/template/engine/StringTemplate";
 import {DynamoDbRepositoryTemplateAttributes} from "../model/DynamoDbRepositoryTemplateAttributes";
-import {DynamoDbRepositoryTemplateFinder} from "../model/DynamoDbRepositoryTemplateFinder";
+import {DynamoDbRepositoryMethodIdTemplatePathMapping} from "../model/DynamoDbRepositoryMethodIdTemplatePathMapping";
 
 export class DynamoDbRepositorySynthesizer {
 
-    private dynamoDbRepositoryTemplateFinder: DynamoDbRepositoryTemplateFinder;
+    private dynamoDbRepositoryMethodIdTemplatePathMapping: DynamoDbRepositoryMethodIdTemplatePathMapping;
 
     constructor() {
-        this.dynamoDbRepositoryTemplateFinder = new DynamoDbRepositoryTemplateFinder();
+        this.dynamoDbRepositoryMethodIdTemplatePathMapping = DynamoDbRepositoryMethodIdTemplatePathMapping.instance();
     }
 
     synthesize(dynamoDbRepositoryTemplateAttributes: DynamoDbRepositoryTemplateAttributes): string {
 
-        let template = this.dynamoDbRepositoryTemplateFinder.load();
+        let template = this.dynamoDbRepositoryMethodIdTemplatePathMapping.loadRepositoryClassTemplate();
         let attributes = dynamoDbRepositoryTemplateAttributes.get();
 
         let includes = this.findSubTemplatesFor(dynamoDbRepositoryTemplateAttributes.supportedMethods());
@@ -22,7 +22,7 @@ export class DynamoDbRepositorySynthesizer {
     private findSubTemplatesFor(supportedMethods) {
         let methodIdToTemplateContentMappings = supportedMethods.map(method => {
             return {
-                [method.id()]: this.dynamoDbRepositoryTemplateFinder.load(`../resources/${method.id()}.template`)
+                [method.id()]: this.dynamoDbRepositoryMethodIdTemplatePathMapping.loadTemplateBy(method.id())
             }
         });
         return Object.assign({}, ...methodIdToTemplateContentMappings);
