@@ -13,9 +13,9 @@ export class DynamoDbRepositorySynthesizer {
     synthesize(dynamoDbRepositoryTemplateAttributes: DynamoDbRepositoryTemplateAttributes): string {
 
         let template = this.dynamoDbRepositoryMethodIdTemplatePathMapping.loadRepositoryClassTemplate();
+        let includes = this.findSubTemplatesFor(dynamoDbRepositoryTemplateAttributes.supportedMethods());
         let attributes = dynamoDbRepositoryTemplateAttributes.get();
 
-        let includes = this.findSubTemplatesFor(dynamoDbRepositoryTemplateAttributes.supportedMethods());
         return new StringTemplate(template).mergeWith(attributes, includes);
     }
 
