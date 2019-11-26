@@ -16,7 +16,7 @@ describe('DynamoDb Repository Attributes', () => {
     it('should return single supported method', () => {
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "")
-            .supportFindAllMethod()
+            .findAllMethodBuilder().withMethodName("findAll").build()
             .build();
 
         let supportedMethods = dynamoDbRepositoryTemplateAttributes.supportedMethods();
@@ -26,8 +26,7 @@ describe('DynamoDb Repository Attributes', () => {
 
     it('should return single findAll supported method', () => {
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
-            .builder("ServerlessRepository", "")
-            .supportFindAllMethod()
+            .builder("ServerlessRepository", "").findAllMethodBuilder().withMethodName("findAll").build()
             .build();
 
         let supportedMethods = dynamoDbRepositoryTemplateAttributes.supportedMethods();
@@ -38,8 +37,7 @@ describe('DynamoDb Repository Attributes', () => {
     it('should return repository attributes for generating repository code', () => {
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "table")
-            .supportFindAllMethod()
-            .withFindAllMethodName("scan")
+            .findAllMethodBuilder().withMethodName("scan").build()
             .withRegion("us-west-1")
             .build();
 

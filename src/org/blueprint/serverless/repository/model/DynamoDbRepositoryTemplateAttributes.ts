@@ -31,12 +31,9 @@ export class DynamoDbRepositoryTemplateAttributes {
 
 class DynamoDbRepositoryTemplateAttributesBuilder {
     private region: string = "us-east-1";
-    private findAllMethodSupported: boolean = false;
-    private findAllMethodName: string = "findAll";
 
-    private findByIdMethodSupported: boolean = false;
-    private findByIdMethodName: string = "findById";
-    private findByIdKeyColumnName: string = "id";
+    private findAllMethod: FindAllMethod = FindAllMethod.unsupported();
+    private findByIdMethod: FindByIdMethod = FindByIdMethod.unsupported();
 
     constructor(private className: string, private tableName: string) {
     }
@@ -46,29 +43,20 @@ class DynamoDbRepositoryTemplateAttributesBuilder {
         return this;
     }
 
-    supportFindAllMethod() {
-        this.findAllMethodSupported = true;
-        return this;
+    findAllMethodBuilder() {
+        return new DynamoDbRepositoryFindAllMethodBuilder(this);
     }
 
-    supportFindByIdMethod() {
-        this.findByIdMethodSupported = true;
-        return this;
+    findByIdMethodBuilder() {
+        return new DynamoDbRepositoryFindByIdMethodBuilder(this);
     }
 
-    withFindAllMethodName(name: string) {
-        this.findAllMethodName = name;
-        return this;
+    withFindAllMethod(findAllMethod: FindAllMethod) {
+        this.findAllMethod = findAllMethod;
     }
 
-    withFindByIdMethodName(name: string) {
-        this.findByIdMethodName = name;
-        return this;
-    }
-
-    withFindByIdKeyColumnName(name: string) {
-        this.findByIdKeyColumnName = name;
-        return this;
+    withFindByIdMethod(findByIdMethod: FindByIdMethod) {
+        this.findByIdMethod = findByIdMethod;
     }
 
     build() {
@@ -76,12 +64,65 @@ class DynamoDbRepositoryTemplateAttributesBuilder {
             this.className,
             this.tableName,
             this.region,
-            Array.of(
-                new FindAllMethod(this.findAllMethodSupported,
-                    this.findAllMethodName),
-                new FindByIdMethod(this.findByIdMethodSupported,
-                    this.findByIdMethodName,
-                    this.findByIdKeyColumnName))
+            Array.of(this.findAllMethod, this.findByIdMethod));
+    }
+}
+
+class DynamoDbRepositoryFindAllMethodBuilder {
+
+    private readonly dynamoDbRepositoryTemplateAttributesBuilder: DynamoDbRepositoryTemplateAttributesBuilder;
+
+    private methodSupported: boolean = true;
+    private methodName: string = "findAll";
+
+    constructor(dynamoDbRepositoryTemplateAttributesBuilder: DynamoDbRepositoryTemplateAttributesBuilder) {
+        this.dynamoDbRepositoryTemplateAttributesBuilder = dynamoDbRepositoryTemplateAttributesBuilder;
+    }
+
+    withMethodName(name: string) {
+        this.methodName = name;
+        return this;
+    }
+
+    build() {
+        this.dynamoDbRepositoryTemplateAttributesBuilder.withFindAllMethod(
+            new FindAllMethod(
+                this.methodSupported,
+                this.methodName)
         );
+        return this.dynamoDbRepositoryTemplateAttributesBuilder;
+    }
+}
+
+class DynamoDbRepositoryFindByIdMethodBuilder {
+
+    private readonly dynamoDbRepositoryTemplateAttributesBuilder: DynamoDbRepositoryTemplateAttributesBuilder;
+
+    private methodSupported: boolean = true;
+    private methodName: string = "findById";
+    private keyColumnName: string = "id";
+
+    constructor(dynamoDbRepositoryTemplateAttributesBuilder: DynamoDbRepositoryTemplateAttributesBuilder) {
+        this.dynamoDbRepositoryTemplateAttributesBuilder = dynamoDbRepositoryTemplateAttributesBuilder;
+    }
+
+    withMethodName(name: string) {
+        this.methodName = name;
+        return this;
+    }
+
+    withKeyColumnName(name: string) {
+        this.keyColumnName = name;
+        return this;
+    }
+
+    build() {
+        this.dynamoDbRepositoryTemplateAttributesBuilder.withFindByIdMethod(
+            new FindByIdMethod(
+                this.methodSupported,
+                this.methodName,
+                this.keyColumnName)
+        );
+        return this.dynamoDbRepositoryTemplateAttributesBuilder;
     }
 }

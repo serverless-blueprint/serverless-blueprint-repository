@@ -18,6 +18,10 @@ export class FindAllMethod extends DynamoDbRepositoryMethod {
         super();
     }
 
+    static unsupported() {
+        return new FindAllMethod(false, "findAll");
+    }
+
     id(): string {
         return "findAllMethod";
     }
@@ -34,6 +38,10 @@ export class FindByIdMethod extends DynamoDbRepositoryMethod {
                 public readonly methodName: string,
                 public readonly keyColumnName: string) {
         super();
+    }
+
+    static unsupported() {
+        return new FindByIdMethod(false, "findAll", "id");
     }
 
     id(): string {

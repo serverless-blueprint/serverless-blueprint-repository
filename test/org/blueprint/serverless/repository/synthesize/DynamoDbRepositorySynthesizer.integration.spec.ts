@@ -43,8 +43,9 @@ module.exports = ServerlessRepository;`.trim();
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "serverless-table")
-            .supportFindAllMethod()
-            .withFindAllMethodName( "findAll").build();
+            .findAllMethodBuilder()
+            .withMethodName("findAll").build()
+            .build();
 
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 
@@ -55,8 +56,9 @@ module.exports = ServerlessRepository;`.trim();
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "serverless-table")
-            .supportFindByIdMethod()
-            .withFindByIdMethodName( "findById").build();
+            .findByIdMethodBuilder()
+            .withMethodName("findById").build()
+            .build();
 
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 

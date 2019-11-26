@@ -50,8 +50,8 @@ describe('DynamoDb Repository Synthesizer', () => {
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
-            .supportFindAllMethod()
-            .withFindAllMethodName("findAll")
+            .findAllMethodBuilder()
+            .withMethodName("findAll").build()
             .build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 
@@ -64,8 +64,8 @@ describe('DynamoDb Repository Synthesizer', () => {
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
-            .supportFindAllMethod()
-            .withFindAllMethodName("scan")
+            .findAllMethodBuilder()
+            .withMethodName("scan").build()
             .build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 
@@ -78,8 +78,8 @@ describe('DynamoDb Repository Synthesizer', () => {
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
-            .supportFindByIdMethod()
-            .withFindByIdMethodName("findById")
+            .findByIdMethodBuilder()
+            .withMethodName("findById").build()
             .build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 
@@ -92,8 +92,8 @@ describe('DynamoDb Repository Synthesizer', () => {
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
-            .supportFindByIdMethod()
-            .withFindByIdMethodName("findByAnId")
+            .findByIdMethodBuilder()
+            .withMethodName("findByAnId").build()
             .build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 
@@ -106,9 +106,9 @@ describe('DynamoDb Repository Synthesizer', () => {
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
-            .supportFindByIdMethod()
-            .withFindByIdMethodName("findByAnId")
-            .withFindByIdKeyColumnName("repositoryId")
+            .findByIdMethodBuilder()
+            .withMethodName("findByAnId")
+            .withKeyColumnName("repositoryId").build()
             .build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 
@@ -121,8 +121,8 @@ describe('DynamoDb Repository Synthesizer', () => {
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes.builder("", "")
-            .supportFindByIdMethod()
-            .withFindByIdMethodName("findByAnId")
+            .findByIdMethodBuilder()
+            .withMethodName("findByAnId").build()
             .build();
         let repositoryCode = dynamoDbRepositorySynthesizer.synthesize(dynamoDbRepositoryTemplateAttributes);
 
