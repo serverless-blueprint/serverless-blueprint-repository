@@ -31,7 +31,8 @@ export class FindAllMethod extends DynamoDbRepositoryMethod {
 
 export class FindByIdMethod extends DynamoDbRepositoryMethod {
     constructor(public readonly supported: boolean,
-                public readonly methodName: string) {
+                public readonly methodName: string,
+                public readonly keyColumnName: string) {
         super();
     }
 
@@ -41,7 +42,8 @@ export class FindByIdMethod extends DynamoDbRepositoryMethod {
 
     allAttributes() {
         return {
-            "methodName": this.methodName
+            "methodName": this.methodName,
+            "keyColumnName": this.keyColumnName
         }
     }
 }
