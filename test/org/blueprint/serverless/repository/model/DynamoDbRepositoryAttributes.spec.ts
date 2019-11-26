@@ -34,4 +34,25 @@ describe('DynamoDb Repository Attributes', () => {
 
         expect(supportedMethods[0].id()).to.equal("findAllMethod");
     });
+
+    it('should return repository attributes for generating repository code', () => {
+        let dynamoDbRepositoryAttributes = DynamoDbRepositoryAttributes
+            .builder("ServerlessRepository", "table")
+            .supportFindAllMethod()
+            .withFindAllMethodName("scan")
+            .withRegion("us-west-1")
+            .build();
+
+        let repositoryAttributes = dynamoDbRepositoryAttributes.repositoryAttributes();
+        const expectedRepositoryAttributes = {
+            "findAllMethod": {
+                "methodName": "scan"
+            },
+            "className": "ServerlessRepository",
+            "tableName": "table",
+            "region": "us-west-1"
+        };
+
+        expect(repositoryAttributes).to.deep.equal(expectedRepositoryAttributes);
+    });
 });
