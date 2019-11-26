@@ -1,49 +1,49 @@
 import {expect} from "chai";
-import {DynamoDbRepositoryAttributes} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryAttributes";
+import {DynamoDbRepositoryTemplateAttributes} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateAttributes";
 
 describe('DynamoDb Repository Attributes', () => {
 
     it('should return empty supported methods', () => {
-        let dynamoDbRepositoryAttributes = DynamoDbRepositoryAttributes
+        let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "")
             .build();
 
-        let supportedMethods = dynamoDbRepositoryAttributes.supportedMethods();
+        let supportedMethods = dynamoDbRepositoryTemplateAttributes.supportedMethods();
 
         expect(supportedMethods).to.be.empty;
     });
 
     it('should return single supported method', () => {
-        let dynamoDbRepositoryAttributes = DynamoDbRepositoryAttributes
+        let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "")
             .supportFindAllMethod()
             .build();
 
-        let supportedMethods = dynamoDbRepositoryAttributes.supportedMethods();
+        let supportedMethods = dynamoDbRepositoryTemplateAttributes.supportedMethods();
 
         expect(supportedMethods.length).to.equal(1);
     });
 
     it('should return single findAll supported method', () => {
-        let dynamoDbRepositoryAttributes = DynamoDbRepositoryAttributes
+        let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "")
             .supportFindAllMethod()
             .build();
 
-        let supportedMethods = dynamoDbRepositoryAttributes.supportedMethods();
+        let supportedMethods = dynamoDbRepositoryTemplateAttributes.supportedMethods();
 
         expect(supportedMethods[0].id()).to.equal("findAllMethod");
     });
 
     it('should return repository attributes for generating repository code', () => {
-        let dynamoDbRepositoryAttributes = DynamoDbRepositoryAttributes
+        let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "table")
             .supportFindAllMethod()
             .withFindAllMethodName("scan")
             .withRegion("us-west-1")
             .build();
 
-        let repositoryAttributes = dynamoDbRepositoryAttributes.repositoryAttributes();
+        let attributes = dynamoDbRepositoryTemplateAttributes.get();
         const expectedRepositoryAttributes = {
             "findAllMethod": {
                 "methodName": "scan"
@@ -53,6 +53,6 @@ describe('DynamoDb Repository Attributes', () => {
             "region": "us-west-1"
         };
 
-        expect(repositoryAttributes).to.deep.equal(expectedRepositoryAttributes);
+        expect(attributes).to.deep.equal(expectedRepositoryAttributes);
     });
 });

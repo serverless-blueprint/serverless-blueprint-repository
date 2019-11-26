@@ -1,6 +1,6 @@
 import {DynamoDbRepositoryMethod, FindAllMethod, FindByIdMethod} from "./DynamoDbRepositoryMethods";
 
-export class DynamoDbRepositoryAttributes {
+export class DynamoDbRepositoryTemplateAttributes {
     constructor(public readonly className: string,
                 public readonly tableName: string,
                 public readonly region: string,
@@ -8,14 +8,14 @@ export class DynamoDbRepositoryAttributes {
     }
 
     static builder(className: string, tableName: string) {
-        return new DynamoDbRepositoryAttributeBuilder(className, tableName)
+        return new DynamoDbRepositoryTemplateAttributesBuilder(className, tableName)
     }
 
     supportedMethods(): DynamoDbRepositoryMethod[] {
         return this.methods.filter(method => method.supported)
     }
 
-    repositoryAttributes() {
+    get() {
         let idToAttributeMappings = this.supportedMethods().map(method => method.idToAttributeMapping());
         let reducedIdToAttributeMapping = Object.assign({}, ...idToAttributeMappings);
 
@@ -29,7 +29,7 @@ export class DynamoDbRepositoryAttributes {
     }
 }
 
-class DynamoDbRepositoryAttributeBuilder {
+class DynamoDbRepositoryTemplateAttributesBuilder {
     private region: string = "us-east-1";
     private findAllMethodSupported: boolean = false;
     private findAllMethodName: string = "findAll";
@@ -72,7 +72,7 @@ class DynamoDbRepositoryAttributeBuilder {
     }
 
     build() {
-        return new DynamoDbRepositoryAttributes(
+        return new DynamoDbRepositoryTemplateAttributes(
             this.className,
             this.tableName,
             this.region,

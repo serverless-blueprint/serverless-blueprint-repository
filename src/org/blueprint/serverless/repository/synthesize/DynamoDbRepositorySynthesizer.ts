@@ -1,5 +1,5 @@
 import {StringTemplate} from "serverless-blueprint-template-engine/src/org/blueprint/serverless/template/engine/StringTemplate";
-import {DynamoDbRepositoryAttributes} from "../model/DynamoDbRepositoryAttributes";
+import {DynamoDbRepositoryTemplateAttributes} from "../model/DynamoDbRepositoryTemplateAttributes";
 import {DynamoDbRepositoryTemplateFinder} from "../model/DynamoDbRepositoryTemplateFinder";
 
 export class DynamoDbRepositorySynthesizer {
@@ -10,13 +10,13 @@ export class DynamoDbRepositorySynthesizer {
         this.dynamoDbRepositoryTemplateFinder = new DynamoDbRepositoryTemplateFinder();
     }
 
-    synthesize(dynamoDbRepositoryAttributes: DynamoDbRepositoryAttributes): string {
+    synthesize(dynamoDbRepositoryTemplateAttributes: DynamoDbRepositoryTemplateAttributes): string {
 
         let template = this.dynamoDbRepositoryTemplateFinder.load();
-        let placeholders = dynamoDbRepositoryAttributes.repositoryAttributes();
+        let attributes = dynamoDbRepositoryTemplateAttributes.get();
 
-        let includes = this.findSubTemplatesFor(dynamoDbRepositoryAttributes.supportedMethods());
-        return new StringTemplate(template).mergeWith(placeholders, includes);
+        let includes = this.findSubTemplatesFor(dynamoDbRepositoryTemplateAttributes.supportedMethods());
+        return new StringTemplate(template).mergeWith(attributes, includes);
     }
 
     private findSubTemplatesFor(supportedMethods) {
