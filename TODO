@@ -1,5 +1,22 @@
 1. Should DynamoDbRepositoryFeatures be refactored further to include
     CoreFeatures and MethodFeatures
+        -> introduced method
 2. Check partials of mustache to make template more readable
+        -> done
 3. Move FindAllMethodFeatures and FindByIdMethodFeatures in their own classes
+        -> done
 4. Somehow DynamoDbRepositoryFeatures should be able to tell what all methods are required?
+        -> done
+5. Refactor DynamoDbRepositoryTemplateFinder
+6. Introduce a concept of method id and template mapping
+
+7. Introduce keyColumnName in FindByIdMethod
+        -> Done
+8. Add tests for repositoryAttributes and supportedMethods
+        -> done
+9. Should DynamoDbRepositoryAttributes be renamed to something like
+    DynamoDbRepositoryTemplateAttributes ?
+        -> Done
+
+10. DynamoDbRepositoryAttributeBuilder can be broken down to have builders for each method
+        -> Done
