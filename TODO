@@ -10,7 +10,7 @@
 5. Refactor DynamoDbRepositoryTemplateFinder
         -> Done (Removed)
 6. Introduce a concept of method id and template mapping
-        -> Done..need to remove hardcoding from method classes..
+        -> Done..need to remove hardcoding from method classes.. <Done>
 7. Introduce keyColumnName in FindByIdMethod
         -> Done
 8. Add tests for repositoryAttributes and supportedMethods
@@ -21,6 +21,11 @@
 10. DynamoDbRepositoryAttributeBuilder can be broken down to have builders for each method
         -> Done
 11. Rename supportedMethods
-
+        -> Done
 12. Rename DynamoDbRepositoryMethodIdTemplatePathMapping
         -> Done
+
+13. Should DynamoDbRepositoryAttributes have methods or an abstraction which contains method and its synthesis?
+    Am I missing an abstraction which contains both a method and its synthesis?
+
+14.
