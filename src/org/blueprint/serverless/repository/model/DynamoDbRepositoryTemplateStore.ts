@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import {NoTemplatePathRegisteredException} from "../exception/NoTemplatePathRegisteredException";
+import {MethodIds} from "./MethodIds";
 
 export type MethodIdToTemplateMapping = { [key: string]: string };
 
@@ -12,8 +13,8 @@ export class DynamoDbRepositoryTemplateStore {
 
     constructor() {
         this.mapping = {
-            "findAllMethod": "../resources/findAllMethod.template",
-            "findByIdMethod": "../resources/findByIdMethod.template"
+            [MethodIds.FindAll]: "../resources/findAllMethod.template",
+            [MethodIds.FindById]: "../resources/findByIdMethod.template"
         };
     }
 

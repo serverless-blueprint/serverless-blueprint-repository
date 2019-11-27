@@ -1,8 +1,8 @@
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient({region: '{{region}}'});
 class {{className}} {
 
-    {{>findAllMethod}}
-    {{>findByIdMethod}}
+    {{>findAll}}
+    {{>findById}}
 }
 
 module.exports = {{className}};

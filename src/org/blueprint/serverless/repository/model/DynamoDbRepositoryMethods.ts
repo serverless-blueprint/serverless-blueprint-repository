@@ -1,3 +1,5 @@
+import {MethodIds} from "./MethodIds";
+
 export abstract class DynamoDbRepositoryMethod {
     readonly shouldSynthesize: boolean;
 
@@ -14,7 +16,7 @@ export abstract class DynamoDbRepositoryMethod {
 
 export class FindAllMethod extends DynamoDbRepositoryMethod {
     constructor(public readonly shouldSynthesize: boolean,
-                 public readonly methodName: string) {
+                public readonly methodName: string) {
         super();
     }
 
@@ -23,7 +25,7 @@ export class FindAllMethod extends DynamoDbRepositoryMethod {
     }
 
     id(): string {
-        return "findAllMethod";
+        return MethodIds.FindAll;
     }
 
     allAttributes() {
@@ -45,7 +47,7 @@ export class FindByIdMethod extends DynamoDbRepositoryMethod {
     }
 
     id(): string {
-        return "findByIdMethod";
+        return MethodIds.FindById;
     }
 
     allAttributes() {

@@ -1,5 +1,6 @@
 import {expect} from "chai";
 import {DynamoDbRepositoryTemplateAttributes} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateAttributes";
+import {MethodIds} from "../../../../../../src/org/blueprint/serverless/repository/model/MethodIds";
 
 describe('DynamoDb Repository Template Attributes', () => {
 
@@ -31,7 +32,7 @@ describe('DynamoDb Repository Template Attributes', () => {
 
         let methodsToBeSynthesized = dynamoDbRepositoryTemplateAttributes.methodsToBeSynthesized();
 
-        expect(methodsToBeSynthesized[0].id()).to.equal("findAllMethod");
+        expect(methodsToBeSynthesized[0].id()).to.equal(MethodIds.FindAll);
     });
 
     it('should return repository attributes for generating repository code', () => {
@@ -43,7 +44,7 @@ describe('DynamoDb Repository Template Attributes', () => {
 
         let attributes = dynamoDbRepositoryTemplateAttributes.get();
         const expectedRepositoryAttributes = {
-            "findAllMethod": {
+            "findAll": {
                 "methodName": "scan"
             },
             "className": "ServerlessRepository",

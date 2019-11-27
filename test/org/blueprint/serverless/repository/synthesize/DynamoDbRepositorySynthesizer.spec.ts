@@ -53,7 +53,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with findAll method', () => {
-        mock.expects("loadRepositoryClassTemplate").returns("async {{findAllMethod.methodName}}()");
+        mock.expects("loadRepositoryClassTemplate").returns("async {{findAll.methodName}}()");
         mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -67,7 +67,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with custom method name for findAll', () => {
-        mock.expects("loadRepositoryClassTemplate").returns("async {{findAllMethod.methodName}}()");
+        mock.expects("loadRepositoryClassTemplate").returns("async {{findAll.methodName}}()");
         mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -81,7 +81,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with findById method', () => {
-        mock.expects("loadRepositoryClassTemplate").returns("async {{findByIdMethod.methodName}}()");
+        mock.expects("loadRepositoryClassTemplate").returns("async {{findById.methodName}}()");
         mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -95,7 +95,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with custom method name for findById', () => {
-        mock.expects("loadRepositoryClassTemplate").returns("async {{findByIdMethod.methodName}}()");
+        mock.expects("loadRepositoryClassTemplate").returns("async {{findById.methodName}}()");
         mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -109,7 +109,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with custom key column name for findById', () => {
-        mock.expects("loadRepositoryClassTemplate").returns("{{findByIdMethod.keyColumnName}}: id");
+        mock.expects("loadRepositoryClassTemplate").returns("{{findById.keyColumnName}}: id");
         mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();
@@ -124,7 +124,7 @@ describe('DynamoDb Repository Synthesizer', () => {
     });
 
     it('should return dynamo db repository with default key column name for findById', () => {
-        mock.expects("loadRepositoryClassTemplate").returns("{{findByIdMethod.keyColumnName}}: id");
+        mock.expects("loadRepositoryClassTemplate").returns("{{findById.keyColumnName}}: id");
         mock.expects("loadTemplateBy").returns("");
 
         let dynamoDbRepositorySynthesizer = new DynamoDbRepositorySynthesizer();

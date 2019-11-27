@@ -1,8 +1,8 @@
-async {{findByIdMethod.methodName}}(id) {
+async {{findById.methodName}}(id) {
     const request = {
         TableName: "{{tableName}}",
         Key: {
-            "{{findByIdMethod.keyColumnName}}": id
+            "{{findById.keyColumnName}}": id
         }
     };
     const promise = await dynamoDbClient.get(request).promise();

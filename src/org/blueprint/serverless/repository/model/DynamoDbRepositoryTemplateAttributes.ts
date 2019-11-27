@@ -98,7 +98,7 @@ class DynamoDbRepositoryFindByIdMethodBuilder {
 
     private readonly dynamoDbRepositoryTemplateAttributesBuilder: DynamoDbRepositoryTemplateAttributesBuilder;
 
-    private shouldShynthesize: boolean = true;
+    private shouldSynthesize: boolean = true;
     private methodName: string = "findById";
     private keyColumnName: string = "id";
 
@@ -119,7 +119,7 @@ class DynamoDbRepositoryFindByIdMethodBuilder {
     build() {
         this.dynamoDbRepositoryTemplateAttributesBuilder.withFindByIdMethod(
             new FindByIdMethod(
-                this.shouldShynthesize,
+                this.shouldSynthesize,
                 this.methodName,
                 this.keyColumnName)
         );
