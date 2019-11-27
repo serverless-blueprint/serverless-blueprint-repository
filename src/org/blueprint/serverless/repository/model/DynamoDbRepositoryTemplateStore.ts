@@ -24,6 +24,10 @@ export class DynamoDbRepositoryTemplateStore {
         return DynamoDbRepositoryTemplateStore.ref;
     }
 
+    private static joinDirectoryPathWith(templatePath): string {
+        return path.join(__dirname, templatePath)
+    }
+
     loadTemplateBy(methodId: string) {
         let templatePath = this.mapping[methodId];
         if (templatePath == undefined) {
@@ -43,9 +47,5 @@ export class DynamoDbRepositoryTemplateStore {
 
     addTemplateMapping(mapping: MethodIdToTemplateMapping) {
         this.mapping = {...this.mapping, ...mapping}
-    }
-
-    private static joinDirectoryPathWith(templatePath): string {
-        return path.join(__dirname, templatePath)
     }
 }
