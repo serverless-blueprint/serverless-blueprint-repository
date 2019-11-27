@@ -29,12 +29,15 @@ export class DynamoDbRepositoryTemplateStore {
         if (templatePath == undefined) {
             throw new NoTemplatePathRegisteredException(methodId);
         }
+
         const filePath = DynamoDbRepositoryTemplateStore.joinDirectoryPathWith(templatePath);
         return fs.readFileSync(filePath, "utf8");
     }
 
     loadRepositoryClassTemplate() {
-        const filePath = DynamoDbRepositoryTemplateStore.joinDirectoryPathWith("../resources/repositoryClass.template");
+        const filePath = DynamoDbRepositoryTemplateStore
+            .joinDirectoryPathWith("../resources/repositoryClass.template");
+
         return fs.readFileSync(filePath, "utf8");
     }
 
