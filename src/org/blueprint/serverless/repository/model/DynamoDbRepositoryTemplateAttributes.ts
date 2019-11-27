@@ -12,7 +12,7 @@ export class DynamoDbRepositoryTemplateAttributes {
     }
 
     methodsToBeSynthesized(): DynamoDbRepositoryMethod[] {
-        return this.methods.filter(method => method.supported)
+        return this.methods.filter(method => method.shouldSynthesize)
     }
 
     get() {
@@ -32,8 +32,8 @@ export class DynamoDbRepositoryTemplateAttributes {
 class DynamoDbRepositoryTemplateAttributesBuilder {
     private region: string = "us-east-1";
 
-    private findAllMethod: FindAllMethod = FindAllMethod.unsupported();
-    private findByIdMethod: FindByIdMethod = FindByIdMethod.unsupported();
+    private findAllMethod: FindAllMethod = FindAllMethod.doNotSynthesize();
+    private findByIdMethod: FindByIdMethod = FindByIdMethod.doNotSynthesize();
 
     constructor(private className: string, private tableName: string) {
     }
@@ -72,7 +72,7 @@ class DynamoDbRepositoryFindAllMethodBuilder {
 
     private readonly dynamoDbRepositoryTemplateAttributesBuilder: DynamoDbRepositoryTemplateAttributesBuilder;
 
-    private methodSupported: boolean = true;
+    private shouldSynthesize: boolean = true;
     private methodName: string = "findAll";
 
     constructor(dynamoDbRepositoryTemplateAttributesBuilder: DynamoDbRepositoryTemplateAttributesBuilder) {
@@ -87,7 +87,7 @@ class DynamoDbRepositoryFindAllMethodBuilder {
     build() {
         this.dynamoDbRepositoryTemplateAttributesBuilder.withFindAllMethod(
             new FindAllMethod(
-                this.methodSupported,
+                this.shouldSynthesize,
                 this.methodName)
         );
         return this.dynamoDbRepositoryTemplateAttributesBuilder;
@@ -98,7 +98,7 @@ class DynamoDbRepositoryFindByIdMethodBuilder {
 
     private readonly dynamoDbRepositoryTemplateAttributesBuilder: DynamoDbRepositoryTemplateAttributesBuilder;
 
-    private methodSupported: boolean = true;
+    private shouldShynthesize: boolean = true;
     private methodName: string = "findById";
     private keyColumnName: string = "id";
 
@@ -119,7 +119,7 @@ class DynamoDbRepositoryFindByIdMethodBuilder {
     build() {
         this.dynamoDbRepositoryTemplateAttributesBuilder.withFindByIdMethod(
             new FindByIdMethod(
-                this.methodSupported,
+                this.shouldShynthesize,
                 this.methodName,
                 this.keyColumnName)
         );

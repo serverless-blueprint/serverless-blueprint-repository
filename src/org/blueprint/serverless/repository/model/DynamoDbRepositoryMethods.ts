@@ -1,5 +1,5 @@
 export abstract class DynamoDbRepositoryMethod {
-    readonly supported: boolean;
+    readonly shouldSynthesize: boolean;
 
     abstract id(): string
 
@@ -13,12 +13,12 @@ export abstract class DynamoDbRepositoryMethod {
 }
 
 export class FindAllMethod extends DynamoDbRepositoryMethod {
-    constructor(public readonly supported: boolean,
-                public readonly methodName: string) {
+    constructor(public readonly shouldSynthesize: boolean,
+                 public readonly methodName: string) {
         super();
     }
 
-    static unsupported() {
+    static doNotSynthesize() {
         return new FindAllMethod(false, "findAll");
     }
 
@@ -34,13 +34,13 @@ export class FindAllMethod extends DynamoDbRepositoryMethod {
 }
 
 export class FindByIdMethod extends DynamoDbRepositoryMethod {
-    constructor(public readonly supported: boolean,
+    constructor(public readonly shouldSynthesize: boolean,
                 public readonly methodName: string,
                 public readonly keyColumnName: string) {
         super();
     }
 
-    static unsupported() {
+    static doNotSynthesize() {
         return new FindByIdMethod(false, "findAll", "id");
     }
 
