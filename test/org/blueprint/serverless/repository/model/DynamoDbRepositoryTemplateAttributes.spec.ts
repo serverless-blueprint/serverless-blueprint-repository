@@ -3,35 +3,35 @@ import {DynamoDbRepositoryTemplateAttributes} from "../../../../../../src/org/bl
 
 describe('DynamoDb Repository Template Attributes', () => {
 
-    it('should return empty supported methods', () => {
+    it('should return zero methods to be synthesized', () => {
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "")
             .build();
 
-        let supportedMethods = dynamoDbRepositoryTemplateAttributes.supportedMethods();
+        let methodsToBeSynthesized = dynamoDbRepositoryTemplateAttributes.methodsToBeSynthesized();
 
-        expect(supportedMethods).to.be.empty;
+        expect(methodsToBeSynthesized).to.be.empty;
     });
 
-    it('should return single supported method', () => {
+    it('should return single method to be synthesized', () => {
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "")
             .findAllMethodBuilder().withMethodName("findAll").build()
             .build();
 
-        let supportedMethods = dynamoDbRepositoryTemplateAttributes.supportedMethods();
+        let methodsToBeSynthesized = dynamoDbRepositoryTemplateAttributes.methodsToBeSynthesized();
 
-        expect(supportedMethods.length).to.equal(1);
+        expect(methodsToBeSynthesized.length).to.equal(1);
     });
 
-    it('should return single findAll supported method', () => {
+    it('should return single findAll method to be synthesized', () => {
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
             .builder("ServerlessRepository", "").findAllMethodBuilder().withMethodName("findAll").build()
             .build();
 
-        let supportedMethods = dynamoDbRepositoryTemplateAttributes.supportedMethods();
+        let methodsToBeSynthesized = dynamoDbRepositoryTemplateAttributes.methodsToBeSynthesized();
 
-        expect(supportedMethods[0].id()).to.equal("findAllMethod");
+        expect(methodsToBeSynthesized[0].id()).to.equal("findAllMethod");
     });
 
     it('should return repository attributes for generating repository code', () => {

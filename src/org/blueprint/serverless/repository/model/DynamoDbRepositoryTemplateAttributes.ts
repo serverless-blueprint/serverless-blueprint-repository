@@ -11,12 +11,12 @@ export class DynamoDbRepositoryTemplateAttributes {
         return new DynamoDbRepositoryTemplateAttributesBuilder(className, tableName)
     }
 
-    supportedMethods(): DynamoDbRepositoryMethod[] {
+    methodsToBeSynthesized(): DynamoDbRepositoryMethod[] {
         return this.methods.filter(method => method.supported)
     }
 
     get() {
-        let idToAttributeMappings = this.supportedMethods().map(method => method.idToAttributeMapping());
+        let idToAttributeMappings = this.methodsToBeSynthesized().map(method => method.idToAttributeMapping());
         let reducedIdToAttributeMapping = Object.assign({}, ...idToAttributeMappings);
 
         return {

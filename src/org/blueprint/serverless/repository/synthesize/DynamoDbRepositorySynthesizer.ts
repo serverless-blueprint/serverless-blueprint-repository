@@ -13,14 +13,14 @@ export class DynamoDbRepositorySynthesizer {
     synthesize(dynamoDbRepositoryTemplateAttributes: DynamoDbRepositoryTemplateAttributes): string {
 
         let template = this.dynamoDbRepositoryTemplateStore.loadRepositoryClassTemplate();
-        let includes = this.findSubTemplatesFor(dynamoDbRepositoryTemplateAttributes.supportedMethods());
+        let includes = this.findSubTemplatesFor(dynamoDbRepositoryTemplateAttributes.methodsToBeSynthesized());
         let attributes = dynamoDbRepositoryTemplateAttributes.get();
 
         return new StringTemplate(template).mergeWith(attributes, includes);
     }
 
-    private findSubTemplatesFor(supportedMethods) {
-        let methodIdToTemplateContentMappings = supportedMethods.map(method => {
+    private findSubTemplatesFor(methods) {
+        let methodIdToTemplateContentMappings = methods.map(method => {
             return {
                 [method.id()]: this.dynamoDbRepositoryTemplateStore.loadTemplateBy(method.id())
             }
