@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {DynamoDbRepositoryTemplateAttributes} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateAttributes";
 
-describe('DynamoDb Repository Attributes', () => {
+describe('DynamoDb Repository Template Attributes', () => {
 
     it('should return empty supported methods', () => {
         let dynamoDbRepositoryTemplateAttributes = DynamoDbRepositoryTemplateAttributes
