@@ -28,17 +28,21 @@ export class DynamoDbRepositoryTemplateStore {
         if (templatePath == undefined) {
             throw new NoTemplatePathRegisteredException(methodId);
         }
-        const filePath = path.join(__dirname, templatePath);
+        const filePath = DynamoDbRepositoryTemplateStore.joinDirectoryPathWith(templatePath);
         return fs.readFileSync(filePath, "utf8");
     }
 
     loadRepositoryClassTemplate() {
-        const filePath = path.join(__dirname, "../resources/repositoryClass.template");
+        const filePath = DynamoDbRepositoryTemplateStore.joinDirectoryPathWith("../resources/repositoryClass.template");
         return fs.readFileSync(filePath, "utf8");
     }
 
     addTemplateMapping(mapping: MethodIdToTemplateMapping) {
         this.mapping = {...this.mapping, ...mapping}
+    }
+
+    private static joinDirectoryPathWith(templatePath): string {
+        return path.join(__dirname, templatePath)
     }
 }
 
