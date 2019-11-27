@@ -3,9 +3,9 @@ import * as path from 'path';
 
 export type MethodIdToTemplateMapping = { [key: string]: string };
 
-export class DynamoDbRepositoryMethodIdTemplatePathMapping {
+export class DynamoDbRepositoryTemplateStore {
 
-    private static ref: DynamoDbRepositoryMethodIdTemplatePathMapping;
+    private static ref: DynamoDbRepositoryTemplateStore;
 
     private mapping: MethodIdToTemplateMapping;
 
@@ -17,10 +17,10 @@ export class DynamoDbRepositoryMethodIdTemplatePathMapping {
     }
 
     static instance() {
-        if (DynamoDbRepositoryMethodIdTemplatePathMapping.ref == null)
-            DynamoDbRepositoryMethodIdTemplatePathMapping.ref = new DynamoDbRepositoryMethodIdTemplatePathMapping();
+        if (DynamoDbRepositoryTemplateStore.ref == null)
+            DynamoDbRepositoryTemplateStore.ref = new DynamoDbRepositoryTemplateStore();
 
-        return DynamoDbRepositoryMethodIdTemplatePathMapping.ref;
+        return DynamoDbRepositoryTemplateStore.ref;
     }
 
     loadTemplateBy(methodId: string) {

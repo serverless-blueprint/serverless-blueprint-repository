@@ -4,16 +4,16 @@ import * as sinon from 'sinon';
 
 import {DynamoDbRepositorySynthesizer} from "../../../../../../src/org/blueprint/serverless/repository/synthesize/DynamoDbRepositorySynthesizer";
 import {DynamoDbRepositoryTemplateAttributes} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateAttributes";
-import {DynamoDbRepositoryMethodIdTemplatePathMapping} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryMethodIdTemplatePathMapping";
+import {DynamoDbRepositoryTemplateStore} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateStore";
 
 describe('DynamoDb Repository Synthesizer', () => {
 
-    let instance;
+    let dynamoDbRepositoryTemplateStoreInstance;
     let mock;
 
     beforeEach(() => {
-        instance = DynamoDbRepositoryMethodIdTemplatePathMapping.instance();
-        mock = sinon.mock(instance);
+        dynamoDbRepositoryTemplateStoreInstance = DynamoDbRepositoryTemplateStore.instance();
+        mock = sinon.mock(dynamoDbRepositoryTemplateStoreInstance);
     });
 
     afterEach(() => {

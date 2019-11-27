@@ -3,14 +3,14 @@ import {expect} from 'chai';
 import 'mocha';
 
 import {
-    DynamoDbRepositoryMethodIdTemplatePathMapping,
+    DynamoDbRepositoryTemplateStore,
     NoTemplatePathRegisteredException
-} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryMethodIdTemplatePathMapping";
+} from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateStore";
 
-describe('DynamoDb Repository Method Id Template Path Mapping', () => {
+describe('DynamoDb Repository Template Store', () => {
 
     it('should load the template give method id', () => {
-        let instance = DynamoDbRepositoryMethodIdTemplatePathMapping.instance();
+        let instance = DynamoDbRepositoryTemplateStore.instance();
 
         instance
             .addTemplateMapping(
@@ -23,7 +23,7 @@ describe('DynamoDb Repository Method Id Template Path Mapping', () => {
     });
 
     it('should throw an exception given method id not found in the mapping', () => {
-        let instance = DynamoDbRepositoryMethodIdTemplatePathMapping.instance();
+        let instance = DynamoDbRepositoryTemplateStore.instance();
 
         instance
             .addTemplateMapping(
