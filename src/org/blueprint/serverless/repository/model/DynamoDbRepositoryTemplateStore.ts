@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import {NoTemplatePathRegisteredException} from "../exception/NoTemplatePathRegisteredException";
 
 export type MethodIdToTemplateMapping = { [key: string]: string };
 
@@ -43,11 +44,5 @@ export class DynamoDbRepositoryTemplateStore {
 
     private static joinDirectoryPathWith(templatePath): string {
         return path.join(__dirname, templatePath)
-    }
-}
-
-export class NoTemplatePathRegisteredException extends Error{
-    constructor(methodId) {
-        super(`No template path found for methodId ${methodId}`)
     }
 }

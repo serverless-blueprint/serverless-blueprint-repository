@@ -3,9 +3,9 @@ import {expect} from 'chai';
 import 'mocha';
 
 import {
-    DynamoDbRepositoryTemplateStore,
-    NoTemplatePathRegisteredException
+    DynamoDbRepositoryTemplateStore
 } from "../../../../../../src/org/blueprint/serverless/repository/model/DynamoDbRepositoryTemplateStore";
+import {NoTemplatePathRegisteredException} from "../../../../../../src/org/blueprint/serverless/repository/exception/NoTemplatePathRegisteredException";
 
 describe('DynamoDb Repository Template Store', () => {
 
